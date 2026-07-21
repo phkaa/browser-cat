@@ -10,8 +10,9 @@ export class WallManager {
     create() {
         this.destroy()
 
-        const width = this.scene.scale.width
-        const height = this.scene.scale.height
+        const currentSceneScale = this.getCurrentSceneSacle()
+        const width = currentSceneScale.width
+        const height = currentSceneScale.height
         const thickness = this.thickness
         const wallLength = this.wallLength
 
@@ -48,14 +49,24 @@ export class WallManager {
       )
     }
     resize() {
-      const width = this.scene.scale.width
-      const height = this.scene.scale.height
+      const currentSceneScale = this.getCurrentSceneSacle()
+      const width = currentSceneScale.width
+      const height = currentSceneScale.height
       const thickness = this.thickness
 
-      this.matter.body.setPosition(this.walls.floor, { x: width / 2, y: height + (thickness / 2) })
-      this.matter.body.setPosition(this.walls.ceiling, { x: width / 2, y: -thickness / 2 })
-      this.matter.body.setPosition(this.walls.left, { x: -thickness / 2, y: height / 2 })
-      this.matter.body.setPosition(this.walls.right, { x: (width + thickness / 2), y: height / 2 })
+      this.updatePosition(this.walls.floor, width / 2, height + (thickness / 2))
+      this.updatePosition(this.walls.ceiling, width / 2, -thickness / 2)
+      this.updatePosition(this.walls.left, -thickness / 2, height / 2)
+      this.updatePosition(this.walls.right, width + (thickness / 2), height / 2)
+    }
+    updatePosition(wall, chageX, changeY) {
+      this.matter.body.setPosition(wall, { x: chageX, y: changeY })
+    }
+    getCurrentSceneSacle() {
+      return {
+        width: this.scene.scale.width,
+        height: this.scene.scale.height
+      }
     }
     initWalls() {
       return {
