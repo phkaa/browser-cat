@@ -1,3 +1,5 @@
+import { Cat } from './pet.cat.js'
+
 export class PetManager {
   constructor(scene, Math, cats) {
     this.scene = scene
@@ -20,9 +22,10 @@ export class PetManager {
       `${randomCat}-idle`
     )
     pet.setFixedRotation()
-    pet.play(`${randomCat}-idle`)
 
-    this.pets.push(pet)
+    const cat = new Cat(pet, randomCat)
+    
+    this.pets.push(cat)
   }
   keepInWorld() {
 
