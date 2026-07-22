@@ -17,7 +17,7 @@ export class MainScene extends Scene {
     this.wallManager.create()
     this.needResize = false
 
-    this.petManager = new PetManager(this, Math)
+    this.petManager = new PetManager(this, Math, this.cats)
     this.petManager.create()
 
     this.scale.on('resize', () => {

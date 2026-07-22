@@ -1,7 +1,8 @@
 export class PetManager {
-  constructor(scene, Math) {
-    this.math = Math
+  constructor(scene, Math, cats) {
     this.scene = scene
+    this.math = Math
+    this.cats = cats
     this.matter = this.scene.matter
     this.spriteSize = 48
     this.pets = []
@@ -11,14 +12,15 @@ export class PetManager {
   }
   addPet() {
     const currentSceneScale = this.getCurrentSceneSacle()
+    const randomCat = this.math.RND.pick(this.cats)
 
     const pet = this.matter.add.sprite(
       this.math.Between(this.spriteSize, currentSceneScale.width - this.spriteSize),
       this.spriteSize,
-      'black-cat-idle'
+      `${randomCat}-idle`
     )
     pet.setFixedRotation()
-    pet.play('black-cat-idle')
+    pet.play(`${randomCat}-idle`)
 
     this.pets.push(pet)
   }
