@@ -3,14 +3,22 @@ import {
     Math
 } from './phaser_v4.2.1.esm.js'
 import { WallManager } from './manager.wall.js'
+import { PetManager } from './manager.pet.js'
 
 export class MainScene extends Scene {
   preload() {
+    this.cats = ['black-cat', 'brown-cat', 'orangetabby-cat', 'siamese-cat', 'tuxedo-cat', 'white-cat']
+    this.loadResources()
   }
   create() {
+    this.loadAnims()
+
     this.wallManager = new WallManager(this)
     this.wallManager.create()
     this.needResize = false
+
+    this.petManager = new PetManager(this, Math)
+    this.petManager.create()
 
     this.scale.on('resize', () => {
       this.needResize = true
@@ -20,6 +28,12 @@ export class MainScene extends Scene {
   }
   update() {
     this.updateResizeWall()
+  }
+  updateResizeWall() {
+    if (this.needResize) {
+      this.needResize = false
+      this.wallManager.resize()
+    }
   }
   createPetAddUIButton() {
     const size = 30
@@ -42,17 +56,29 @@ export class MainScene extends Scene {
     buttonPetAdd.setSize(size, size)
     buttonPetAdd.setInteractive({ useHandCursor: true })
     buttonPetAdd.on('pointerdown', () => {
-      this.matter.add.circle(
-        Math.Between(x, this.scale.width),
-        100,
-        20
-      )
+      this.petManager.addPet()
     })
   }
-  updateResizeWall() {
-    if (this.needResize) {
-      this.needResize = false
-      this.wallManager.resize()
+  loadResources() {
+    for (const cat of this.cats) {
+      this.load.spritesheet(`${cat}-idle`, `./assets/${cat}-idle.png`, { frameWidth: 48, frameHeight: 48})
+      this.load.spritesheet(`${cat}-run`, `./assets/${cat}-run.png`, { frameWidth: 48, frameHeight: 48})
+    }
+  }
+  loadAnims() {
+    for (const cat of this.cats) {
+      this.anims.create({ 
+        key: `${cat}-idle`,
+        frames: this.anims.generateFrameNumbers(`${cat}-idle`, { start: 0, end: 11 }),
+        frameRate: 10,
+        repeat: -1
+      })
+      this.anims.create({ 
+        key: `${cat}-run`,
+        frames: this.anims.generateFrameNumbers(`${cat}-run`, { start: 0, end: 5 }),
+        frameRate: 10,
+        repeat: -1
+      })
     }
   }
 }
