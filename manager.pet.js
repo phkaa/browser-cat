@@ -15,6 +15,7 @@ export class PetManager {
   update() {
     for (const pet of this.pets) {
       pet.update()
+      pet.keepInWorld()
     }
   }
   addPet() {

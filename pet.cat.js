@@ -59,4 +59,20 @@ export class Cat {
     this.state = state
     this.catSprite.play(`${this.catType}-${this.state}`)
   }
+  keepInWorld() {
+    const sprite = this.catSprite
+
+    if (
+        sprite.x < -100 ||
+        sprite.x > this.scene.scale.width + 100 ||
+        sprite.y > this.scene.scale.height + 100
+    ) {
+        sprite.setPosition(
+            this.scene.scale.width / 2,
+            100
+        )
+
+        sprite.setVelocity(0, 0)
+    }
+  }
 }
