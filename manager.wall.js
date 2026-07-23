@@ -1,4 +1,4 @@
-import { categorys } from './config.js'
+import { categorys, labels } from './config.js'
 
 export class WallManager {
     constructor(scene) {
@@ -29,7 +29,7 @@ export class WallManager {
         wallLength, 
         thickness, 
         { 
-          label: 'wall-floor',
+          label: labels.wall.floor,
           isStatic: true, 
           collisionFilter: { 
             category: categorys.wall,
@@ -44,7 +44,7 @@ export class WallManager {
         wallLength, 
         thickness, 
         { 
-          label: 'wall-ceiling',
+          label: labels.wall.ceiling,
           isStatic: true, 
           collisionFilter: { 
             category: categorys.wall,
@@ -59,7 +59,7 @@ export class WallManager {
         thickness, 
         wallLength, 
         { 
-          label: 'wall-left',
+          label: labels.wall.left,
           isStatic: true, 
           collisionFilter: { 
             category: categorys.wall,
@@ -74,7 +74,7 @@ export class WallManager {
         thickness, 
         wallLength,
         { 
-          label: 'wall-right',
+          label: labels.wall.right,
           isStatic: true, 
           collisionFilter: { 
             category: categorys.wall,

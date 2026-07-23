@@ -1,5 +1,5 @@
 import { Cat } from './pet.cat.js'
-import { catTypes, categorys } from './config.js'
+import { catTypes, categorys, labels } from './config.js'
 
 export class PetManager {
   constructor(scene, Math) {
@@ -12,6 +12,11 @@ export class PetManager {
   create() {
 
   }
+  update() {
+    for (const pet of this.pets) {
+      pet.update()
+    }
+  }
   addPet() {
     const currentSceneScale = this.getCurrentSceneSacle()
     const randomCat = this.math.RND.pick(catTypes)
@@ -22,19 +27,15 @@ export class PetManager {
       `${randomCat}-idle`,
       null,
       {
-        label: 'pet-cat'
+        label: labels.cat
       }
     )
     pet.setFixedRotation()
     pet.setCollisionCategory(categorys.cat)
     pet.setCollidesWith([categorys.wall])
 
-    const cat = new Cat(pet, randomCat)
-    
+    const cat = new Cat(this.scene, pet, randomCat)
     this.pets.push(cat)
-  }
-  keepInWorld() {
-
   }
   getCurrentSceneSacle() {
       return {

@@ -4,7 +4,7 @@ import {
 } from './phaser_v4.2.1.esm.js'
 import { WallManager } from './manager.wall.js'
 import { PetManager } from './manager.pet.js'
-import { catTypes, categorys } from './config.js'
+import { catTypes, categorys, labels } from './config.js'
 
 export class MainScene extends Scene {
   preload() {
@@ -31,6 +31,7 @@ export class MainScene extends Scene {
   }
   update() {
     this.updateResizeWall()
+    this.petManager.update()
   }
   updateResizeWall() {
     if (this.needResize) {
@@ -89,6 +90,17 @@ export class MainScene extends Scene {
     categorys.wall = this.matter.world.nextCategory()
   }
   worldCollisionStart(event) {
-    console.log([...event.pairs])
+    for (const pair of event.pairs) {
+      const bodyA = pair.bodyA
+      const bodyB = pair.bodyB
+
+      if (bodyA.label === labels.cat) {
+        bodyA.pet.onCollision(bodyB)
+      }
+
+      if (bodyB.label === labels.cat) {
+        bodyB.pet.onCollision(bodyA)
+      }
+    }
   }
 }
