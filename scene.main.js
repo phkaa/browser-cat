@@ -4,11 +4,12 @@ import {
 } from './phaser_v4.2.1.esm.js'
 import { WallManager } from './manager.wall.js'
 import { PetManager } from './manager.pet.js'
+import { catTypes, categorys } from './config.js'
 
 export class MainScene extends Scene {
   preload() {
-    this.cats = ['black-cat', 'brown-cat', 'orangetabby-cat', 'siamese-cat', 'tuxedo-cat', 'white-cat']
     this.loadResources()
+    this.loadCategory()
   }
   create() {
     this.loadAnims()
@@ -17,7 +18,7 @@ export class MainScene extends Scene {
     this.wallManager.create()
     this.needResize = false
 
-    this.petManager = new PetManager(this, Math, this.cats)
+    this.petManager = new PetManager(this, Math)
     this.petManager.create()
 
     this.scale.on('resize', () => {
@@ -60,13 +61,13 @@ export class MainScene extends Scene {
     })
   }
   loadResources() {
-    for (const cat of this.cats) {
+    for (const cat of catTypes) {
       this.load.spritesheet(`${cat}-idle`, `./assets/${cat}-idle.png`, { frameWidth: 48, frameHeight: 48})
       this.load.spritesheet(`${cat}-run`, `./assets/${cat}-run.png`, { frameWidth: 48, frameHeight: 48})
     }
   }
   loadAnims() {
-    for (const cat of this.cats) {
+    for (const cat of catTypes) {
       this.anims.create({ 
         key: `${cat}-idle`,
         frames: this.anims.generateFrameNumbers(`${cat}-idle`, { start: 0, end: 11 }),
@@ -80,5 +81,8 @@ export class MainScene extends Scene {
         repeat: -1
       })
     }
+  }
+  loadCategory() {
+    categorys.cat = this.matter.world.nextCategory()
   }
 }

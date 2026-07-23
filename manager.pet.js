@@ -1,10 +1,10 @@
 import { Cat } from './pet.cat.js'
+import { catTypes, categorys } from './config.js'
 
 export class PetManager {
-  constructor(scene, Math, cats) {
+  constructor(scene, Math) {
     this.scene = scene
     this.math = Math
-    this.cats = cats
     this.matter = this.scene.matter
     this.spriteSize = 48
     this.pets = []
@@ -13,8 +13,9 @@ export class PetManager {
 
   }
   addPet() {
+    console.log(categorys.cat)
     const currentSceneScale = this.getCurrentSceneSacle()
-    const randomCat = this.math.RND.pick(this.cats)
+    const randomCat = this.math.RND.pick(catTypes)
 
     const pet = this.matter.add.sprite(
       this.math.Between(this.spriteSize, currentSceneScale.width - this.spriteSize),

@@ -1,10 +1,10 @@
 export class Cat {
-  constructor(catObj, catName) {
+  constructor(catObj, catType) {
     this.catObj = catObj
-    this.catName = catName
-    this.state = 'idle'
+    this.catType = catType
+    this.state = null
 
-    this.updateState(this.state)
+    this.updateState('idle')
   }
   create() {
     
@@ -14,7 +14,7 @@ export class Cat {
     let anim = null
 
     if (this.state === 'idle') {
-      anim = `${this.catName}-${this.state}`
+      anim = `${this.catType}-${this.state}`
     }
 
     this.catObj.play(anim)
