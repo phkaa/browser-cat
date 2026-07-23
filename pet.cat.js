@@ -1,22 +1,30 @@
-import { labels, petState } from './config.js'
+import { labels, petState, petDirection } from './config.js'
 
 export class Cat {
-  constructor(scene, catSprite, catType) {
+  constructor(scene, catSprite, catType, direction) {
     this.scene = scene
     this.catSprite = catSprite
     this.catType = catType
     this.state = null
+    this.speed = 0.8
+    this.direction = direction
 
     this.catSprite.body.pet = this
 
     this.updateState(petState.idle)
+
+    if (this.direction === petDirection.right) {
+      this.turnLeft()
+    } else {
+      this.turnRight()
+    }
   }
   create() {
     
   }
   update() {
     if (this.state === petState.run) {
-      this.catSprite.setVelocityX(2)
+      this.catSprite.setVelocityX(this.speed * this.direction)
     }
   }
   onCollision(otherBody) {
@@ -32,12 +40,20 @@ export class Cat {
       case labels.wall.ceiling:
         break
       case labels.wall.left:
-        // this.turnRight()
+        this.turnRight()
         break
       case labels.wall.right:
-        // this.turnLeft()
+        this.turnLeft()
         break
     }
+  }
+  turnRight() {
+    this.direction = petDirection.right
+    this.catSprite.setFlipX(false)
+  }
+  turnLeft() {
+    this.direction = petDirection.left
+    this.catSprite.setFlipX(true)
   }
   updateState(state) {
     this.state = state

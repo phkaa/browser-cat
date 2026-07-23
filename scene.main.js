@@ -80,7 +80,7 @@ export class MainScene extends Scene {
       this.anims.create({ 
         key: `${cat}-run`,
         frames: this.anims.generateFrameNumbers(`${cat}-run`, { start: 0, end: 5 }),
-        frameRate: 10,
+        frameRate: 12,
         repeat: -1
       })
     }

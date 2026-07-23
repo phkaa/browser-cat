@@ -5,6 +5,11 @@ export const petState = {
   run: 'run'
 }
 
+export const petDirection = {
+  left: -1,
+  right: 1
+}
+
 export const categorys = {}
 
 export const labels = {
