@@ -84,5 +84,6 @@ export class MainScene extends Scene {
   }
   loadCategory() {
     categorys.cat = this.matter.world.nextCategory()
+    categorys.wall = this.matter.world.nextCategory()
   }
 }

@@ -13,7 +13,6 @@ export class PetManager {
 
   }
   addPet() {
-    console.log(categorys.cat)
     const currentSceneScale = this.getCurrentSceneSacle()
     const randomCat = this.math.RND.pick(catTypes)
 
@@ -23,6 +22,8 @@ export class PetManager {
       `${randomCat}-idle`
     )
     pet.setFixedRotation()
+    pet.setCollisionCategory(categorys.cat)
+    pet.setCollidesWith([categorys.wall])
 
     const cat = new Cat(pet, randomCat)
     
