@@ -29,9 +29,11 @@ export class WallManager {
         wallLength, 
         thickness, 
         { 
+          label: 'wall-floor',
           isStatic: true, 
           collisionFilter: { 
-            category: categorys.wall 
+            category: categorys.wall,
+            mask: categorys.cat
           }
         }
       )
@@ -42,9 +44,11 @@ export class WallManager {
         wallLength, 
         thickness, 
         { 
+          label: 'wall-ceiling',
           isStatic: true, 
           collisionFilter: { 
-            category: categorys.wall 
+            category: categorys.wall,
+            mask: categorys.cat 
           }
         }
       )
@@ -55,9 +59,11 @@ export class WallManager {
         thickness, 
         wallLength, 
         { 
+          label: 'wall-left',
           isStatic: true, 
           collisionFilter: { 
-            category: categorys.wall 
+            category: categorys.wall,
+            mask: categorys.cat 
           }
         }
       )
@@ -68,18 +74,20 @@ export class WallManager {
         thickness, 
         wallLength,
         { 
+          label: 'wall-right',
           isStatic: true, 
           collisionFilter: { 
-            category: categorys.wall 
+            category: categorys.wall,
+            mask: categorys.cat 
           }
         }
       )
     }
     destroy() {
       for (const wall of Object.values(this.walls)) {
-          if (wall) {
-            this.scene.matter.world.remove(wall)
-          }
+        if (wall) {
+          this.scene.matter.world.remove(wall)
+        }
       }
 
       this.walls = this.initWalls()

@@ -26,6 +26,8 @@ export class MainScene extends Scene {
     })
 
     this.createPetAddUIButton()
+    
+    this.matter.world.on('collisionstart', this.worldCollisionStart)
   }
   update() {
     this.updateResizeWall()
@@ -85,5 +87,8 @@ export class MainScene extends Scene {
   loadCategory() {
     categorys.cat = this.matter.world.nextCategory()
     categorys.wall = this.matter.world.nextCategory()
+  }
+  worldCollisionStart(event) {
+    console.log([...event.pairs])
   }
 }

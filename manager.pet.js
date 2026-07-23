@@ -19,7 +19,11 @@ export class PetManager {
     const pet = this.matter.add.sprite(
       this.math.Between(this.spriteSize, currentSceneScale.width - this.spriteSize),
       this.spriteSize,
-      `${randomCat}-idle`
+      `${randomCat}-idle`,
+      null,
+      {
+        label: 'pet-cat'
+      }
     )
     pet.setFixedRotation()
     pet.setCollisionCategory(categorys.cat)
