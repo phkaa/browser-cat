@@ -35,6 +35,7 @@ export class PetManager {
     pet.setFixedRotation()
     pet.setCollisionCategory(categorys.cat)
     pet.setCollidesWith([categorys.wall])
+    pet.setInteractive({ useHandCursor: true })
 
     const cat = new Cat(this.scene, pet, randomCat, randomDirection)
     this.pets.push(cat)

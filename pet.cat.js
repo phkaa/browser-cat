@@ -8,9 +8,14 @@ export class Cat {
     this.state = null
     this.speed = 0.8
     this.direction = direction
+    this.dragging = false
+    this.pointer = null
 
     this.catSprite.body.pet = this
 
+    this.catSprite.on('pointerdown', this.pointerStart.bind(this))
+    this.catSprite.on('pointerup', this.pointerUp.bind(this))
+    
     this.updateState(petState.idle)
 
     if (this.direction === petDirection.right) {
@@ -23,6 +28,19 @@ export class Cat {
     
   }
   update() {
+    if (this.dragging) {
+      const pointer = this.scene.input.activePointer
+
+        this.catSprite.setPosition(
+            pointer.worldX,
+            pointer.worldY
+        )
+
+        this.catSprite.setVelocity(0, 0)
+
+        return
+    }
+
     if (this.state === petState.run) {
       this.catSprite.setVelocityX(this.speed * this.direction)
     }
@@ -74,5 +92,26 @@ export class Cat {
 
         sprite.setVelocity(0, 0)
     }
+  }
+  pointerStart(pointer) {
+    this.dragging = true
+    this.pointer = pointer
+    this.updateState(petState.idle)
+
+    this.catSprite.setVelocity(0, 0)
+    this.catSprite.setIgnoreGravity(true)
+  }
+  pointerUp() {
+    if (!this.dragging) {
+      return
+    }
+
+    this.dragging = false
+
+    this.catSprite.setIgnoreGravity(false)
+    this.catSprite.setVelocity(
+      this.pointer.velocity.x * 0.02,
+      this.pointer.velocity.y * 0.02
+    )
   }
 }
