@@ -1,0 +1,33 @@
+{
+  "manifest_version": 3,
+  "name": "Browser Cat",
+  "version": "1.0.0",
+  "description": "웹 브라우저 화면 위에 고양이를 띄우는 확장 프로그램",
+  "permissions": [
+    "activeTab"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_end"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "assets/*",
+        "assets/*.png",
+        "assets/*.jpg",
+        "config.js",
+        "game.js",
+        "manager.pet.js",
+        "manager.wall.js",
+        "pet.cat.js",
+        "phaser_v4.2.1.esm.js",
+        "scene.main.js"
+      ],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}

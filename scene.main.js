@@ -4,7 +4,7 @@ import {
 } from './phaser_v4.2.1.esm.js'
 import { WallManager } from './manager.wall.js'
 import { PetManager } from './manager.pet.js'
-import { catTypes, categorys, labels } from './config.js'
+import { catTypes, categorys, labels, config } from './config.js'
 
 export class MainScene extends Scene {
   preload() {
@@ -58,6 +58,7 @@ export class MainScene extends Scene {
 
     const buttonPetAdd = this.add.container(x, y, [buttonBackground, label])
     buttonPetAdd.setSize(size, size)
+    buttonPetAdd.setScrollFactor(0)
     buttonPetAdd.setInteractive({ useHandCursor: true })
     buttonPetAdd.on('pointerdown', () => {
       this.petManager.addPet()
@@ -65,9 +66,12 @@ export class MainScene extends Scene {
   }
   loadResources() {
     for (const cat of catTypes) {
-      this.load.spritesheet(`${cat}-idle`, `./assets/${cat}-idle.png`, { frameWidth: 48, frameHeight: 48})
-      this.load.spritesheet(`${cat}-run`, `./assets/${cat}-run.png`, { frameWidth: 48, frameHeight: 48})
+      this.load.spritesheet(`${cat}-idle`, this.getAssetUrl(`${cat}-idle.png`), { frameWidth: 48, frameHeight: 48})
+      this.load.spritesheet(`${cat}-run`, this.getAssetUrl(`${cat}-run.png`), { frameWidth: 48, frameHeight: 48})
     }
+  }
+  getAssetUrl(assetFile) {
+    return `${config.baseUrl}assets/${assetFile}`
   }
   loadAnims() {
     for (const cat of catTypes) {

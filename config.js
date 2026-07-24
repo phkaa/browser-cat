@@ -1,3 +1,7 @@
+export const config = {
+  baseUrl: ''
+}
+
 export const catTypes = ['black-cat', 'brown-cat', 'orangetabby-cat', 'siamese-cat', 'tuxedo-cat', 'white-cat']
 
 export const petState = {

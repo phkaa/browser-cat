@@ -13,8 +13,9 @@ export class Cat {
 
     this.catSprite.body.pet = this
 
-    this.catSprite.on('pointerdown', this.pointerStart.bind(this))
-    this.catSprite.on('pointerup', this.pointerUp.bind(this))
+    // TODO 버그가 있어 주석 처리
+    // this.catSprite.on('pointerdown', this.pointerStart.bind(this))
+    // this.catSprite.on('pointerup', this.pointerUp.bind(this))
     
     this.updateState(petState.idle)
 
